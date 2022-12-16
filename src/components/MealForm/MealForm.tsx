@@ -9,10 +9,12 @@ interface Props {
   loading: boolean;
 }
 
+const now = new Date().toISOString().slice(0, 10);
 const initialState: MealMut = {
   type: '',
   description: '',
   calories: '',
+  date: now,
 };
 
 const MealForm: React.FC<Props> = ({
@@ -44,6 +46,7 @@ const MealForm: React.FC<Props> = ({
         className="form-select mb-3"
         name="type"
         value={meal.type}
+        disabled={loading}
         onChange={onMealChange}
         required
       >
@@ -58,8 +61,21 @@ const MealForm: React.FC<Props> = ({
         <textarea
           id="description" name="description"
           className="form-control" required
+          disabled={loading}
           value={meal.description}
           onChange={onMealChange}
+        />
+      </div>
+      <div className="form-group my-2">
+        <label>Date: </label>
+        <input
+          id="date" name="date" type="date"
+          className="form-control" required
+          disabled={loading}
+          value={meal.date}
+          onChange={onMealChange}
+          min="2022-01-01"
+          max="2024-01-01"
         />
       </div>
       <div className="form-group my-2">
@@ -68,13 +84,18 @@ const MealForm: React.FC<Props> = ({
           <input
             id="calories" name="calories" type="number"
             className="form-control" required
+            disabled={loading}
             value={meal.calories}
             onChange={onMealChange}
           />
           <p className="m-1 py-1">kcal</p>
         </div>
       </div>
-      <button type="submit" className="btn btn-primary">
+      <button
+        type="submit"
+        className="btn btn-primary"
+        disabled={loading}
+      >
         {loading ? <ButtonSpinner/> : ''}
         {isEdit ? 'Update' : 'Create'}
       </button>

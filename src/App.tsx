@@ -3,14 +3,28 @@ import Layout from "./components/Layout/Layout";
 import {Route, Routes, useLocation} from "react-router-dom";
 import Home from "./containers/Home/Home";
 import NewMeal from './containers/NewMeal/NewMeal';
-import {ApiMealType, Meal} from './types';
+import {ApiMealType, Meal, MealType} from './types';
 import axiosApi from './axiosApi';
 import EditMeal from './containers/EditMeal/EditMeal';
 
 function App() {
   const location = useLocation();
   const [meals, setMeals] = useState<Meal[]>([]);
+  const [total, setTotal] = useState<number>(0);
   const [loading, setLoading] = useState(false);
+
+  const getTotal = (meals: MealType[]) => {
+    const now = new Date ().toISOString().slice(0, 10);
+    const total = meals.reduce((sum, meal) => {
+      if (meal.date === now) {
+        return sum + meal.calories;
+      } else {
+        return sum;
+      }
+    }, 0);
+
+    setTotal(total);
+  };
 
   const fetchMeals = useCallback( async() => {
     try {
@@ -28,6 +42,10 @@ function App() {
             id,
           }
         });
+        getTotal(newMeals);
+        newMeals.sort(function(a, b) {
+          return Date.parse(b.date) - Date.parse(a.date);
+        });
       }
 
       setMeals(newMeals);
@@ -41,8 +59,6 @@ function App() {
       void fetchMeals();
     }
   }, [location, fetchMeals]);
-
-  const total = meals.reduce((sum, meal) => sum + meal.calories, 0);
 
   return (
     <Layout>

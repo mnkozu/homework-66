@@ -2,12 +2,14 @@ export interface MealMut {
   type: string;
   description: string;
   calories: string;
+  date: string;
 }
 
 export interface MealType {
   type: string;
   description: string;
   calories: number;
+  date: string;
 }
 
 export interface Meal {
@@ -15,6 +17,7 @@ export interface Meal {
   type: string;
   description: string;
   calories: number;
+  date: string;
 }
 
 
