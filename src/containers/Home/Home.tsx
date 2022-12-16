@@ -8,9 +8,10 @@ interface Props {
   loading: boolean;
   meals: Meal[];
   fetchMeals: () => void;
+  total: number;
 }
 
-const Home: React.FC<Props> = ({loading, meals, fetchMeals}) => {
+const Home: React.FC<Props> = ({loading, meals, fetchMeals, total}) => {
   const deleteMeal = async (id: string) => {
     if (window.confirm('Do you really want to delete this meal?')) {
       await axiosApi.delete('/meals/' + id + '.json');
@@ -19,7 +20,10 @@ const Home: React.FC<Props> = ({loading, meals, fetchMeals}) => {
   };
 
   return (
-    <div className="row mt-2">
+    <div className="mt-2">
+      <div>
+        <h5>Total calories: {total}</h5>
+      </div>
       {loading ? <Spinner/> : (
         <Meals meals={meals} deleteMeal={deleteMeal}/>
       )}

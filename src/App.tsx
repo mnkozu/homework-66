@@ -42,6 +42,7 @@ function App() {
     }
   }, [location, fetchMeals]);
 
+  const total = meals.reduce((sum, meal) => sum + meal.calories, 0);
 
   return (
     <Layout>
@@ -51,6 +52,7 @@ function App() {
             loading={loading}
             meals={meals}
             fetchMeals={fetchMeals}
+            total={total}
           />
         )}/>
         <Route path='/new-meal' element={(<NewMeal/>)}/>
