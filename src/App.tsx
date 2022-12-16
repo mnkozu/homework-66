@@ -5,6 +5,7 @@ import Home from "./containers/Home/Home";
 import NewMeal from './containers/NewMeal/NewMeal';
 import {ApiMealType, Meal} from './types';
 import axiosApi from './axiosApi';
+import EditMeal from './containers/EditMeal/EditMeal';
 
 function App() {
   const location = useLocation();
@@ -52,6 +53,7 @@ function App() {
           />
         )}/>
         <Route path='/new-meal' element={(<NewMeal/>)}/>
+        <Route path='/edit-meal/:id' element={(<EditMeal/>)}/>
       </Routes>
     </Layout>
   );

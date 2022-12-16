@@ -1,10 +1,10 @@
-export interface MealType {
+export interface MealMut {
   type: string;
   description: string;
   calories: string;
 }
 
-export interface MealMut {
+export interface MealType {
   type: string;
   description: string;
   calories: number;
@@ -19,5 +19,5 @@ export interface Meal {
 
 
 export interface ApiMealType {
-  [id: string]: MealMut;
+  [id: string]: MealType;
 }

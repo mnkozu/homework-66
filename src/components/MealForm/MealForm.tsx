@@ -3,16 +3,25 @@ import ButtonSpinner from '../Spinner/ButtonSpinner';
 import {MealMut, MealType} from '../../types';
 
 interface Props {
-  onSubmit: (meal: MealMut) => void;
+  onSubmit: (meal: MealType) => void;
+  existingMeal?: MealMut;
+  isEdit?: boolean;
   loading: boolean;
 }
 
-const MealForm: React.FC<Props> = ({onSubmit, loading}) => {
-  const [meal, setMeal] = useState<MealType>({
-    type: '',
-    description: '',
-    calories: '',
-  });
+const initialState: MealMut = {
+  type: '',
+  description: '',
+  calories: '',
+};
+
+const MealForm: React.FC<Props> = ({
+   onSubmit,
+   existingMeal = initialState,
+   isEdit= false,
+   loading = false,
+}) => {
+  const [meal, setMeal] = useState<MealMut>(existingMeal);
 
   const onMealChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>) => {
     const {name, value} = e.target;
@@ -30,7 +39,7 @@ const MealForm: React.FC<Props> = ({onSubmit, loading}) => {
 
   return (
     <form onSubmit={onFormSubmit}>
-      <h4>Add new meal</h4>
+      <h4>{isEdit ? 'Edit meal' : 'Add new meal'}</h4>
       <select
         className="form-select mb-3"
         name="type"
@@ -67,7 +76,7 @@ const MealForm: React.FC<Props> = ({onSubmit, loading}) => {
       </div>
       <button type="submit" className="btn btn-primary">
         {loading ? <ButtonSpinner/> : ''}
-        Add
+        {isEdit ? 'Update' : 'Create'}
       </button>
     </form>
   );
