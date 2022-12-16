@@ -1,9 +1,19 @@
 import React from 'react';
+import {Meal} from '../../types';
+import Meals from '../../components/Meals/Meals';
+import Spinner from '../../components/Spinner/Spinner';
 
-const Home = () => {
+interface Props {
+  loading: boolean;
+  meals: Meal[];
+}
+
+const Home: React.FC<Props> = ({loading, meals}) => {
   return (
-    <div>
-      Home
+    <div className="row mt-2">
+      {loading ? <Spinner/> : (
+        <Meals meals={meals} />
+      )}
     </div>
   );
 };
