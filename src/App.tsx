@@ -50,6 +50,7 @@ function App() {
           <Home
             loading={loading}
             meals={meals}
+            fetchMeals={fetchMeals}
           />
         )}/>
         <Route path='/new-meal' element={(<NewMeal/>)}/>

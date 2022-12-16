@@ -4,9 +4,10 @@ import {Link} from 'react-router-dom';
 
 interface Props {
   meal: Meal;
+  onDelete: React.MouseEventHandler;
 }
 
-const MealItem: React.FC<Props> = ({meal}) => {
+const MealItem: React.FC<Props> = ({meal, onDelete}) => {
   return (
     <div className="card my-2">
       <div className="card-body row">
@@ -19,7 +20,7 @@ const MealItem: React.FC<Props> = ({meal}) => {
         </div>
         <div className="col-2 align-self-center d-flex flex-column justify-content-between">
           <Link className="btn btn-primary" to={`/edit-meal/${meal.id}`}>Edit</Link>
-          <button className="btn btn-danger m-1">Delete</button>
+          <button className="btn btn-danger m-1" onClick={onDelete}>Delete</button>
         </div>
       </div>
     </div>

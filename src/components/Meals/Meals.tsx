@@ -4,16 +4,18 @@ import MealItem from './MealItem';
 
 interface Props {
   meals: Meal[];
+  deleteMeal: (id: string) => void;
 }
 
-const Meals: React.FC<Props> = ({meals}) => {
+const Meals: React.FC<Props> = ({meals, deleteMeal}) => {
   return (
     <div>
      <h4>Meals</h4>
       {meals.map((meal) => (
-        <MealItem
+         <MealItem
           key={meal.id}
           meal={meal}
+          onDelete={() => deleteMeal(meal.id)}
         />
       ))}
     </div>
